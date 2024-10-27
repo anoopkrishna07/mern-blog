@@ -3,9 +3,9 @@ import {Button} from 'flowbite-react'
 import {AiFillGoogleCircle} from 'react-icons/ai'
 import {GoogleAuthProvider, signInWithPopup, getAuth} from 'firebase/auth'
 import { app } from '../firebase'
-import {useDispatch, useSelector} from 'react-redux';
-import {signinStart, signinSuccess, signinFailure} from '../redux/user/userslice.js';
-import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { signinSuccess } from '../redux/user/userslice.js';
+import { useNavigate } from 'react-router-dom';
 
 export default function OAuth() {
    const auth = getAuth(app);
@@ -23,12 +23,12 @@ export default function OAuth() {
                     name: resultsFromGoogle.user.displayName,
                     email: resultsFromGoogle.user.email,
                     googlePhotoUrl: resultsFromGoogle.user.photoURL
-                })
+                }),
 
         })
-        const data = await res.json()
+        const data = await res.json();
         if(res.ok){
-            dispatch(signinSuccess());
+            dispatch(signinSuccess(data));
             navigate('/');
         }
             
